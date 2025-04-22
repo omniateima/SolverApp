@@ -16,7 +16,7 @@
             android:name=".historyActivity"
             android:exported="false" />
         <activity
-            android:name=".responseActivity"
+            android:name=".solveActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
