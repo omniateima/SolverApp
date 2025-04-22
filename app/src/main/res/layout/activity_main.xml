@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageButton
+        android:id="@+id/cameraButton"
+        android:layout_width="165dp"
+        android:layout_height="165dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="#C1B9C7"
+        android:contentDescription="gallary_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/uploadButton"
+        app:layout_constraintTop_toBottomOf="@+id/appName"
+        app:layout_constraintVertical_bias="0.261"
+        app:srcCompat="@android:drawable/ic_menu_camera" />
+
+    <TextView
+        android:id="@+id/uploadImage2"
+        android:layout_width="165dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="28dp"
+        android:fontFamily="sans-serif"
+        android:text="upload image"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/uploadButton"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="214dp"
+        android:layout_height="135dp"
+        android:layout_marginTop="48dp"
+        android:fontFamily="cursive"
+        android:text="Solver"
+        android:textColor="#0B0B0B"
+        android:textSize="96sp"
+        android:typeface="normal"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/history"
+        android:layout_width="211dp"
+        android:layout_height="63dp"
+        android:backgroundTint="#3D3142"
+        android:backgroundTintMode="add"
+        android:text="VIEW HISTORY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.881"
+        app:rippleColor="#F8F4F4" />
+
+    <TextView
+        android:id="@+id/captureImage"
+        android:layout_width="165dp"
+        android:layout_height="38dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="224dp"
+        android:fontFamily="sans-serif"
+        android:text="capture image"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/uploadImage2"
+        app:layout_constraintTop_toBottomOf="@+id/cameraButton"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/uploadButton"
+        android:layout_width="165dp"
+        android:layout_height="165dp"
+        android:layout_marginStart="28dp"
+        android:backgroundTint="#AF834290"
+        android:contentDescription="gallary_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
