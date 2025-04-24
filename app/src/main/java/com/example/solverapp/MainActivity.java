@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         historyBtn.setOnClickListener(v->{
             goToHistoryActivity();
         });
-
     }
 
     private void goToHistoryActivity(){
