@@ -22,15 +22,23 @@ public class solveActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        ImageView history = findViewById(R.id.history_icon);
         ImageView left_arrow = findViewById(R.id.left_arrow);
+
         left_arrow.setOnClickListener(v->{
            goToMainActivity();
+        });
+        history.setOnClickListener(v->{
+            goToHistoryActivity();
         });
     }
 
     private void goToMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+    private void goToHistoryActivity(){
+        Intent intent = new Intent(this, historyActivity.class);
         startActivity(intent);
     }
 }
