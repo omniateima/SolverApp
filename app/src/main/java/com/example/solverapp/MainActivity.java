@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.solverapp.dto.request.ModelRequest;
 import com.example.solverapp.dto.response.ModelResponse;
@@ -44,6 +45,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 100;
+    private final MutableLiveData<String> modelResponseLiveData = new MutableLiveData<>();
+    private final MutableLiveData<String> modelErrorLiveData = new MutableLiveData<>();
 
     Button historyBtn;
     ImageButton uploadBtn;
@@ -129,6 +132,19 @@ public class MainActivity extends AppCompatActivity {
                             String base64String = bitmapToBase64(bitmap);
 //                            Log.i("Image", base64String);
                             sendToModelAPI(base64String);
+                            modelResponseLiveData.observe(this, r -> {
+                                Intent resultIntent = new Intent(MainActivity.this, solveActivity.class);
+                                resultIntent.putExtra("image", base64String);
+                                resultIntent.putExtra("answer", r);
+                                startActivity(resultIntent);
+                            });
+
+                            modelErrorLiveData.observe(this, error -> {
+                                Toast.makeText(this, "Error: " + error, Toast.LENGTH_SHORT).show();
+                            });
+//                            Intent resultIntent = new Intent(MainActivity.this, solveActivity.class);
+//                            resultIntent.putExtra("answer", response);
+//                            startActivity(resultIntent);
 //                            textBase64.setText(base64String);
 
                             // Log a portion of Base64 string (might be too large to log completely)
@@ -155,13 +171,15 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<ModelResponse> call, @NonNull Response<ModelResponse> response) {
                 if (response.body() != null) {
                     String modelResponseAsString = response.body().getMessage();
-                    Log.i("Model",modelResponseAsString);
+                    Log.i("Model", modelResponseAsString);
+                    modelResponseLiveData.postValue(modelResponseAsString);
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<ModelResponse> call, @NonNull Throwable t) {
                 Log.i("TAG", "onFailure: " + t.getMessage());
+                modelErrorLiveData.postValue(t.getMessage());
             }
         });
     }
