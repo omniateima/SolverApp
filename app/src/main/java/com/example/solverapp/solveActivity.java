@@ -1,6 +1,7 @@
 package com.example.solverapp;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.solverapp.DB.DBHelper;
 
 public class solveActivity extends AppCompatActivity {
     ImageView imageView;
@@ -57,9 +60,28 @@ public class solveActivity extends AppCompatActivity {
         }
 //        Log.i("Answer", answer);
         textView.setText(answer);
+/////////
+        int id = getIntent().getIntExtra("id", -1); //// Get the ID from the Intent
+        if (id != -1) {
+            DBHelper dbHelper = new DBHelper(this);
+            Cursor cursor = dbHelper.getSingleData(id);
 
+            if (cursor != null && cursor.moveToFirst()) {
+                byte[] imageBytes = cursor.getBlob(1);
+                Bitmap image = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+                String solve = cursor.getString(2);
+
+                imageView = findViewById(R.id.imageView1);
+                textView = findViewById(R.id.answer);
+
+                imageView.setImageBitmap(image);
+                textView.setText(solve);
+
+                cursor.close();
+            }
+
+        }
     }
-
     private void init() {
         imageView = findViewById(R.id.imageView1);
         textView = findViewById(R.id.answer);

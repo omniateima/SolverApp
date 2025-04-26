@@ -28,6 +28,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.solverapp.DB.DBHelper;
 import com.example.solverapp.dto.request.ModelRequest;
 import com.example.solverapp.dto.response.ModelResponse;
 import com.example.solverapp.service.ModelService;
@@ -48,11 +49,14 @@ public class MainActivity extends AppCompatActivity {
     private final MutableLiveData<String> modelResponseLiveData = new MutableLiveData<>();
     private final MutableLiveData<String> modelErrorLiveData = new MutableLiveData<>();
 
+
     Button historyBtn;
     ImageButton uploadBtn;
     Retrofit retrofit;
     ModelService modelService;
-
+    ////////////
+    DBHelper dbHelper = new DBHelper(this);
+    //////////////
     private ActivityResultLauncher<Intent> galleryLauncher;
     private ActivityResultLauncher<String[]> requestPermissionLauncher;
 
@@ -70,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
 
         init();
 
@@ -125,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(
                                     getContentResolver(), selectedImageUri);
 
+
                             // Display the selected image
 //                            imageView.setImageBitmap(bitmap);
 
@@ -137,6 +143,12 @@ public class MainActivity extends AppCompatActivity {
                                 resultIntent.putExtra("image", base64String);
                                 resultIntent.putExtra("answer", r);
                                 startActivity(resultIntent);
+                                //////
+                                boolean isInserted = dbHelper.insertData(bitmap, r);
+                                if (!isInserted)  {
+                                    Toast.makeText(this, "Failed to insert data.", Toast.LENGTH_SHORT).show();
+                                }
+                                //////
                             });
 
                             modelErrorLiveData.observe(this, error -> {

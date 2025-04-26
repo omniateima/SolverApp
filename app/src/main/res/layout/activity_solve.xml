@@ -11,26 +11,26 @@
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="409dp"
-        android:layout_height="294dp"
+        android:layout_height="257dp"
         android:layout_marginTop="56dp"
         app:layout_constraintBottom_toTopOf="@+id/solve"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-         />
+        app:layout_constraintVertical_bias="0.0" />
+
 
     <TextView
         android:id="@+id/solve"
         android:layout_width="224dp"
-        android:layout_height="101dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
         android:fontFamily="sans-serif-black"
         android:text="Answer:"
         android:textAlignment="textStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#AF8F15A9"
+        android:textColor="#AF44074E"
         android:textSize="60sp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,25 +38,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider3" />
 
-    <TextView
-        android:id="@+id/answer"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:id="@+id/SCROLLER_ID"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="212dp"
-        android:foregroundTint="#A999AD"
-        android:paddingLeft="15dp"
-        android:paddingRight="12dp"
-        android:text=""
-        android:textAlignment="viewStart"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="#050505"
-        android:textSize="20sp"
+        android:background="#DCD0DE"
+        android:fillViewport="true"
+        android:scrollbars="vertical"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/solve"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foregroundTint="#350B40"
+            android:scrollbars="vertical"
+            android:singleLine="false"
+            android:text=""
+            android:textAlignment="viewStart"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="#050505"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/solve"
+            app:layout_constraintVertical_bias="0.0" />
+    </ScrollView>
 
     <include layout="@layout/toolbar" />
 
