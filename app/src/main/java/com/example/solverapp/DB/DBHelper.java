@@ -35,8 +35,15 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("image",imageInBytes);
         values.put("answer", answer);
         long result = db.insert("History",null,values);
-        return result>=0;
+        return result >=0;
     }
+
+    public boolean deleteData(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        int result = db.delete("History", "id=?", new String[]{String.valueOf(id)});
+        return result > 0;
+    }
+
     public Cursor getSingleData(int id) {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery("SELECT * FROM History WHERE id = ?", new String[]{String.valueOf(id)});
@@ -45,7 +52,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getAllDataCursor() {
         SQLiteDatabase db = getReadableDatabase();
-        return db.rawQuery("SELECT * FROM History", null);
+        return db.rawQuery("SELECT * FROM History ORDER BY id DESC", null);
     }
 
 }

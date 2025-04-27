@@ -6,17 +6,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.solverapp.DB.DBHelper;
 
 import java.util.ArrayList;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
-     Context context;
+    private Context context;
     private ArrayList<DataClass> dataList;
-
+    DBHelper db ;
     public ChatAdapter(Context context, ArrayList<DataClass> dataList) {
         this.context = context;
         this.dataList = dataList;
@@ -42,6 +46,19 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
             intent.putExtra("id", data.getId()); // Pass the ID
             context.startActivity(intent);
         });
+        holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                db = new DBHelper(context);
+                boolean isDeleted = db.deleteData(data.getId());
+                if(!isDeleted) {
+                    Toast.makeText(context, "Failed to delete data.", Toast.LENGTH_SHORT).show();
+                }
+                dataList.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
+            }
+
+        });
     }
 
     @Override
@@ -49,16 +66,18 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
         return dataList.size();
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView chatId;
         ImageView questions;
         Button solution;
-
+        ImageButton deleteBtn;
         public ViewHolder(View itemView) {
             super(itemView);
             chatId = itemView.findViewById(R.id.chatId);
             questions = itemView.findViewById(R.id.questions);
             solution = itemView.findViewById(R.id.solution);
+            deleteBtn =itemView.findViewById(R.id.deleteBtn);
         }
     }
 }

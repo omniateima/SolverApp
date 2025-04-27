@@ -62,7 +62,6 @@
         android:layout_width="211dp"
         android:layout_height="63dp"
         android:backgroundTint="#3D3142"
-        android:backgroundTintMode="add"
         android:text="VIEW HISTORY"
         android:textColor="#FFFEFF"
         app:layout_constraintBottom_toBottomOf="parent"
