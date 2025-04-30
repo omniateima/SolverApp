@@ -58,7 +58,7 @@ public class solveActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-//        Log.i("Answer", answer);
+
         textView.setText(answer);
 /////////
         int id = getIntent().getIntExtra("id", -1); //// Get the ID from the Intent

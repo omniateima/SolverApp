@@ -56,12 +56,13 @@
             android:id="@+id/deleteBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="deleteChat"
             android:backgroundTint="#00F4F1F4"
+            android:onClick="deleteChat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@android:drawable/ic_menu_delete"
-            app:tint="#EF834290" />
+            app:tint="#EF834290"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

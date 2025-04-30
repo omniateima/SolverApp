@@ -166,13 +166,12 @@ public class MainActivity extends AppCompatActivity {
     private void processImageUri(Uri imageUri) {
         try {
             // Get the bitmap from the selected image
-            //////
             Bitmap originalBitmap = MediaStore.Images.Media.getBitmap(
                     getContentResolver(), imageUri);
             Bitmap scaledBitmap = scaleBitmap(originalBitmap);
             String base64String = bitmapToBase64(scaledBitmap);
             processImageData(scaledBitmap, base64String);
-            ///////
+
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show();
@@ -213,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Failed to insert data.", Toast.LENGTH_SHORT).show();
                     }
                     //////
-                    // Remove the observer after it's used to avoid potential issues
+                    // Remove the observer after it's used
                     modelResponseLiveData.removeObserver(this);
                 }
             }
@@ -362,81 +361,13 @@ public class MainActivity extends AppCompatActivity {
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
-//    private class ImageResult {
-//        public Bitmap bitmap;
-//        public String base64String;
-//
-//        public ImageResult(Bitmap bitmap, String base64String) {
-//            this.bitmap = bitmap;
-//            this.base64String = base64String;
-//        }
-//    }
-
-//    private ImageResult bitmapToBase64(Bitmap originalBitmap) {
-//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//        int quality = 70; // Start with 70% quality
-//        float scale = 1.0f; // Start with original size
-//        Bitmap resultBitmap = originalBitmap; // Start with original bitmap
-//        boolean isNewBitmapCreated = false;
-//        String base64String;
-//
-//        // First attempt: try with original size but different compression quality
-//        do {
-//            byteArrayOutputStream.reset(); // Clear the stream
-//            resultBitmap.compress(Bitmap.CompressFormat.JPEG, quality, byteArrayOutputStream);
-//            byte[] byteArray = byteArrayOutputStream.toByteArray();
-//            base64String = Base64.encodeToString(byteArray, Base64.DEFAULT);
-//
-//            // If still too large, reduce quality
-//            if (base64String.length() > 180000 && quality > 10) {
-//                quality -= 10;
-//            }
-//            // If quality is already low, start scaling down the image
-//            else if (base64String.length() > 180000) {
-//                // Reduce scale by 10% each time
-//                scale *= 0.9f;
-//                int newWidth = (int) (originalBitmap.getWidth() * scale);
-//                int newHeight = (int) (originalBitmap.getHeight() * scale);
-//
-//                // Don't let dimensions get too small
-//                if (newWidth < 200 || newHeight < 200) {
-//                    // If we're at the minimum size, use the lowest quality and break
-//                    quality = 10;
-//                    byteArrayOutputStream.reset();
-//                    resultBitmap.compress(Bitmap.CompressFormat.JPEG, quality, byteArrayOutputStream);
-//                    byte[] finalByteArray = byteArrayOutputStream.toByteArray();
-//                    base64String = Base64.encodeToString(finalByteArray, Base64.DEFAULT);
-//                    break;
-//                }
-//
-//                // Create a new, smaller bitmap
-//                if (isNewBitmapCreated && resultBitmap != originalBitmap) {
-//                    resultBitmap.recycle(); // Recycle the previous temporary bitmap
-//                }
-//
-//                resultBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
-//                isNewBitmapCreated = true;
-//                quality = 70; // Reset quality for the new size
-//            }
-//        } while (base64String.length() > 180000);
-//
-//        // Log the final dimensions and quality for debugging
-//        Log.d("ImageProcessing", "Final image: " + resultBitmap.getWidth() + "x" +
-//                resultBitmap.getHeight() + " quality: " + quality +
-//                " base64 length: " + base64String.length());
-//
-//        // Return both the resized bitmap and the base64 string
-//        return new ImageResult(resultBitmap, base64String);
-//    }
 
     //////////////
     private Bitmap scaleBitmap(Bitmap originalBitmap) {
-        Log.d("ImageScaling", "Original bitmap dimensions: " + originalBitmap.getWidth() + "x" + originalBitmap.getHeight());
-        int targetWidth = 1024; // Adjust as needed
+        int targetWidth = 1024;
         int targetHeight = (int) (originalBitmap.getHeight() * (float) targetWidth / originalBitmap.getWidth());
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, targetWidth, targetHeight, true);
         originalBitmap.recycle(); // Recycle the original
-        Log.d("ImageScaling", "Scaled bitmap dimensions: " + scaledBitmap.getWidth() + "x" + scaledBitmap.getHeight());
         return scaledBitmap;
     }/////////////
 }
