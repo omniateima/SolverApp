@@ -21,7 +21,4 @@ public class DataClass {
         return image;
     }
 
-    public String getAnswer() {
-        return answer;
-    }
 }

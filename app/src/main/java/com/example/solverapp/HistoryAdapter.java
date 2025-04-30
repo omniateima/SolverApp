@@ -17,17 +17,17 @@ import com.example.solverapp.DB.DBHelper;
 
 import java.util.ArrayList;
 
-public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
     private Context context;
     private ArrayList<DataClass> dataList;
     DBHelper db ;
-    public ChatAdapter(Context context, ArrayList<DataClass> dataList) {
+    public HistoryAdapter(Context context, ArrayList<DataClass> dataList) {
         this.context = context;
         this.dataList = dataList;
     }
 
     @Override
-    public ChatAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public HistoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.history_chat_item, parent, false);
         return new ViewHolder(view);
     }

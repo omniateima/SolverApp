@@ -56,16 +56,8 @@ public class historyActivity extends AppCompatActivity {
 
          }
 
-        ChatAdapter chatAdapter = new ChatAdapter(this, dataList);
-        recyclerView.setAdapter(chatAdapter);
-        //chatAdapter.getItemId(R.id.solution);
+        HistoryAdapter historyAdapter = new HistoryAdapter(this, dataList);
+        recyclerView.setAdapter(historyAdapter);
+
     }
-private void goToMainActivity(){
-    Intent intent = new Intent(this, MainActivity.class);
-    startActivity(intent);
-}
-private void goToSolveActivity(){
-    Intent intent = new Intent(this, solveActivity.class);
-    startActivity(intent);
-}
 }
