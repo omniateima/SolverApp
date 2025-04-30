@@ -174,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
             String base64String = result.base64String;  // The base64 string
             processImageData(resizedBitmap, base64String);
 
-            processImageData(bitmap, base64String);
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show();
