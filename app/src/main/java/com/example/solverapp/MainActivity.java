@@ -7,6 +7,7 @@ import static android.Manifest.permission.CAMERA;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -353,6 +354,7 @@ private String bitmapToBase64(Bitmap bitmap) {
     float scale = 1.0f; // Start with original size
     Bitmap resizedBitmap = bitmap;
     String base64String;
+    boolean createdNewBitmap = false;
 
     // First attempt: try with original size but different compression quality
     do {
@@ -384,10 +386,11 @@ private String bitmapToBase64(Bitmap bitmap) {
             }
 
             // Create a new, smaller bitmap
-            if (resizedBitmap != bitmap) {
+            if (createdNewBitmap) {
                 resizedBitmap.recycle(); // Recycle old resized bitmap to free memory
             }
             resizedBitmap = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true);
+            createdNewBitmap = true;
             quality = 70; // Reset quality for the new size
         }
     } while (base64String.length() > 180000);
@@ -397,8 +400,18 @@ private String bitmapToBase64(Bitmap bitmap) {
             resizedBitmap.getHeight() + " quality: " + quality +
             " base64 length: " + base64String.length());
 
-    // Clean up if we created a new bitmap
-    if (resizedBitmap != bitmap) {
+    // IMPORTANT: Make the input bitmap match the resized one
+    if (createdNewBitmap && bitmap != resizedBitmap) {
+        // Create a Canvas to draw the resized bitmap onto the original one
+        Canvas canvas = new Canvas(bitmap);
+        // Scale the canvas to match the dimensions
+        float scaleX = (float) bitmap.getWidth() / resizedBitmap.getWidth();
+        float scaleY = (float) bitmap.getHeight() / resizedBitmap.getHeight();
+        canvas.scale(scaleX, scaleY);
+        // Draw the resized bitmap onto the original
+        canvas.drawBitmap(resizedBitmap, 0, 0, null);
+
+        // Clean up the resized bitmap
         resizedBitmap.recycle();
     }
 
