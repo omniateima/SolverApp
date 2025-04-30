@@ -402,6 +402,9 @@ private String bitmapToBase64(Bitmap bitmap) {
 
     // IMPORTANT: Make the input bitmap match the resized one
     if (createdNewBitmap && bitmap != resizedBitmap) {
+        if (!bitmap.isMutable()) {
+            bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+        }
         // Create a Canvas to draw the resized bitmap onto the original one
         Canvas canvas = new Canvas(bitmap);
         // Scale the canvas to match the dimensions
