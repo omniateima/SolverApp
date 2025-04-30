@@ -169,6 +169,10 @@ public class MainActivity extends AppCompatActivity {
             Bitmap bitmap = MediaStore.Images.Media.getBitmap(
                     getContentResolver(), imageUri);
 
+            if (!bitmap.isMutable()) {
+                bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+            }
+
             // Convert the bitmap to Base64 and display it
             String base64String = bitmapToBase64(bitmap);
             processImageData(bitmap, base64String);
@@ -182,6 +186,9 @@ public class MainActivity extends AppCompatActivity {
         if (photoUri != null) {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), photoUri);
+                if (!bitmap.isMutable()) {
+                    bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+                }
                 String base64String = bitmapToBase64(bitmap);
                 processImageData(bitmap, base64String);
             } catch (IOException e) {
@@ -402,9 +409,7 @@ private String bitmapToBase64(Bitmap bitmap) {
 
     // IMPORTANT: Make the input bitmap match the resized one
     if (createdNewBitmap && bitmap != resizedBitmap) {
-        if (!bitmap.isMutable()) {
-            bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
-        }
+
         // Create a Canvas to draw the resized bitmap onto the original one
         Canvas canvas = new Canvas(bitmap);
         // Scale the canvas to match the dimensions
