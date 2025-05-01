@@ -5,12 +5,11 @@ import android.graphics.Bitmap;
 public class DataClass {
     private int id;
     private Bitmap image;
-    private String answer;
 
-    public DataClass(int id, Bitmap image, String answer) {
+
+    public DataClass(int id, Bitmap image) {
         this.id = id;
         this.image = image;
-        this.answer = answer;
     }
 
     public int getId() {

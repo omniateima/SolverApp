@@ -42,10 +42,9 @@ public class historyActivity extends AppCompatActivity {
                 System.out.println("Column1: " + cursor.getString(0));
                 int id = cursor.getInt(0);
                 byte[] imageBytes = cursor.getBlob(1);
-                String answer = cursor.getString(2);
                 if (imageBytes != null) {
                     Bitmap image = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-                    dataList.add(new DataClass(id, image,answer));
+                    dataList.add(new DataClass(id,image));
                 } else {
                     System.out.println("Image data is null for ID: " + id);
                 }
